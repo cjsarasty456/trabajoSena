@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 
 //se agrega la librería y listener
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var drawer:DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,20 +47,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val navigationView:NavigationView=findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+
+        val manager=supportFragmentManager
+        val transaction=manager.beginTransaction()
+        transaction.add(R.id.frame_layout_main,firstFragment()).commit()
+        transaction.addToBackStack(null)
+        Toast.makeText(this,"hola",Toast.LENGTH_SHORT).show()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
         when(item.itemId){
-            R.id.nav_item_one->Toast.makeText(
-                this,
-                "item 1",
-                Toast.LENGTH_SHORT
-            ).show()
-            R.id.nav_item_two->Toast.makeText(
-                this,
-                "item 2",
-                Toast.LENGTH_SHORT
-            ).show()
+            R.id.nav_item_one->{
+                Toast.makeText(
+                    this,
+                    "item 3",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val manager=supportFragmentManager
+                val transaction=manager.beginTransaction()
+                transaction.replace(R.id.frame_layout_main,firstFragment()).commit()
+                transaction.addToBackStack(null)
+            }
+            R.id.nav_item_two->{
+                Toast.makeText(
+                    this,
+                    "item 3",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val manager=supportFragmentManager
+                val transaction=manager.beginTransaction()
+                transaction.replace(R.id.frame_layout_main,secondFragment()).commit()
+                transaction.addToBackStack(null)
+            }
+
             R.id.nav_item_three->Toast.makeText(
                 this,
                 "item 3",
@@ -68,6 +92,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
