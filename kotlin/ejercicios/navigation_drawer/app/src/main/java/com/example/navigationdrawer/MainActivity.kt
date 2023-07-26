@@ -1,6 +1,7 @@
 package com.example.navigationdrawer
 
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -48,39 +49,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView:NavigationView=findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
 
+        //habilitar el frame inicial
         val manager=supportFragmentManager
         val transaction=manager.beginTransaction()
         transaction.add(R.id.frame_layout_main,firstFragment()).commit()
         transaction.addToBackStack(null)
-        Toast.makeText(this,"hola",Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
             R.id.nav_item_one->{
-                Toast.makeText(
-                    this,
-                    "item 3",
-                    Toast.LENGTH_SHORT
-                ).show()
                 val manager=supportFragmentManager
                 val transaction=manager.beginTransaction()
                 transaction.replace(R.id.frame_layout_main,firstFragment()).commit()
                 transaction.addToBackStack(null)
             }
             R.id.nav_item_two->{
-                Toast.makeText(
-                    this,
-                    "item 3",
-                    Toast.LENGTH_SHORT
-                ).show()
                 val manager=supportFragmentManager
                 val transaction=manager.beginTransaction()
                 transaction.replace(R.id.frame_layout_main,secondFragment()).commit()
                 transaction.addToBackStack(null)
             }
-
             R.id.nav_item_three->Toast.makeText(
                 this,
                 "item 3",
@@ -91,6 +82,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "item 4",
                 Toast.LENGTH_SHORT
             ).show()
+            R.id.nav_item_five-> {
+                var intent=Intent(this,account::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_item_six->{
+                var intent=Intent(this,setting::class.java)
+                startActivity(intent)
+            }
         }
 
 
