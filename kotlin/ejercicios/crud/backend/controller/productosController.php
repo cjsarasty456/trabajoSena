@@ -232,6 +232,7 @@ class productosController
     }
 }
 
+
 if (isset($_REQUEST['function'])) {
     $function = $_REQUEST['function'];
     $productosController = new productosController();

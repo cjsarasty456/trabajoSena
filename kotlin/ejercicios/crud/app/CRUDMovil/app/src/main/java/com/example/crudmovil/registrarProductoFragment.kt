@@ -8,6 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
+import org.json.JSONException
+
+import java.lang.Exception
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,6 +42,14 @@ lateinit var btnVolver:Button
 lateinit var btnLimpiar:Button
 lateinit var btnGuardar:Button
 lateinit var btnImagen:Button
+
+    lateinit var txtLog:EditText
+
+var Nombre:String=""
+var Descripcion:String=""
+var Precio: String=""
+var Cantidad:String=""
+
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -57,6 +76,7 @@ lateinit var btnImagen:Button
         btnLimpiar= view.findViewById(R.id.btnLimpiar)
         btnVolver= view.findViewById(R.id.btnVolver)
         btnImagen= view.findViewById(R.id.btnImagen)
+        txtLog=view.findViewById(R.id.txtLog)
 
         btnGuardar.setOnClickListener{
             guardarRegistro()
@@ -72,32 +92,61 @@ lateinit var btnImagen:Button
         return view
     }
 
-    fun guardarRegistro(){
+    fun guardarRegistro() {
 
-        var validacion=true
-        if(txtNombre.text.toString()=="") {
+        var validacion = true
+        if (txtNombre.text.toString() == "") {
             validacion = false
-            txtNombre.error="El campo nombre es requerido"
+            txtNombre.error = "El campo nombre es requerido"
         }
-        if(txtDescripcion.text.toString()=="") {
+        if (txtDescripcion.text.toString() == "") {
             validacion = false
-            txtDescripcion.error="El campo descripción es requerido"
+            txtDescripcion.error = "El campo descripción es requerido"
         }
-        if(txtCantidad.text.toString()=="") {
+        if (txtCantidad.text.toString() == "") {
             validacion = false
-            txtCantidad.error="El campo cantidad es requerido"
+            txtCantidad.error = "El campo cantidad es requerido"
         }
-        if(txtPrecio.text.toString()=="") {
+        if (txtPrecio.text.toString() == "") {
             validacion = false
-            txtPrecio.error="El campo precio es requerido"
+            txtPrecio.error = "El campo precio es requerido"
         }
-        if(validacion) {
-            var Nombre = txtNombre.text.toString()
-            var Descripcion = txtDescripcion.text.toString()
-            var Precio: Double = txtPrecio.text.toString().toDouble()
-            var Cantidad = txtCantidad.toString().toInt()
-        }
+        if (validacion) {
+            Nombre = txtNombre.text.toString()
+            Descripcion = txtDescripcion.text.toString()
+            Precio= txtPrecio.text.toString()
+            Cantidad = txtCantidad.text.toString()
 
+            val url =
+                "https://laminose-salutes.000webhostapp.com/controller/productosController.php"
+            val queue = Volley.newRequestQueue(context)
+            val stringRequest = object : StringRequest(
+                Request.Method.POST, url,
+                Response.Listener<String> { response ->
+                    txtLog.setText(" ${txtLog.text.toString()}, ${response} ")
+//
+//                    }
+                }, Response.ErrorListener { error ->
+                    txtLog.setText(" ${txtLog.text.toString()}, ${error} ")
+
+                }
+            ) {
+                override fun getParams(): MutableMap<String, String> {
+
+                    val parametros = HashMap<String, String>()
+                    parametros.put("function", "guardarProducto")
+                    parametros.put("id", "0")
+                    parametros.put("nombre", Nombre)
+                    parametros.put("descripcion", Descripcion)
+                    parametros.put("precio", Precio)
+                    parametros.put("cantidad", Cantidad)
+                    parametros.put("imagen", " ")
+                    return parametros
+                }
+            }
+            queue.add(stringRequest)
+
+        }
     }
     fun limpiarRegistro(){
 
