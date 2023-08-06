@@ -1,10 +1,9 @@
 package com.example.prueba.model
 
-class producto constructor(id:Int,nombre:String){
-    var nombre=nombre
-    var id=id
-    override fun toString():String{
-        return nombre
-    }
-
-}
+data class producto (
+    var id:String,
+    var nombre:String,
+    var descripcion:String,
+    var precio:String,
+    var cantidad:String
+)

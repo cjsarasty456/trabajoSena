@@ -1,6 +1,5 @@
 package com.example.crudmovil
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,18 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONArray
-import org.json.JSONException
-
-import java.lang.Exception
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,23 +24,22 @@ private const val ARG_PARAM2 = "param2"
  */
 class registrarProductoFragment : Fragment() {
 
-lateinit var txtNombre:EditText
-lateinit var txtDescripcion:EditText
-lateinit var txtPrecio:EditText
-lateinit var txtCantidad:EditText
-lateinit var txtImagen:EditText
-lateinit var btnVolver:Button
-lateinit var btnLimpiar:Button
-lateinit var btnGuardar:Button
-lateinit var btnImagen:Button
+    lateinit var txtNombre: EditText
+    lateinit var txtDescripcion: EditText
+    lateinit var txtPrecio: EditText
+    lateinit var txtCantidad: EditText
+    lateinit var txtImagen: EditText
+    lateinit var btnVolver: Button
+    lateinit var btnLimpiar: Button
+    lateinit var btnGuardar: Button
+    lateinit var btnImagen: Button
 
-    lateinit var txtLog:EditText
+    lateinit var txtLog: EditText
 
-var Nombre:String=""
-var Descripcion:String=""
-var Precio: String=""
-var Cantidad:String=""
-
+    var Nombre:String=""
+    var Descripcion:String=""
+    var Precio: String=""
+    var Cantidad:String=""
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -117,8 +107,8 @@ var Cantidad:String=""
             Precio= txtPrecio.text.toString()
             Cantidad = txtCantidad.text.toString()
 
-            val url =
-                "https://laminose-salutes.000webhostapp.com/controller/productosController.php"
+            val url ="https://laminose-salutes.000webhostapp.com/controller/productosController.php"
+//            val url ="http://127.0.0.1:8000/controller/productosController.php"
             val queue = Volley.newRequestQueue(context)
             val stringRequest = object : StringRequest(
                 Request.Method.POST, url,
@@ -149,7 +139,10 @@ var Cantidad:String=""
         }
     }
     fun limpiarRegistro(){
-
+        txtNombre.text.clear()
+        txtDescripcion.text.clear()
+        txtPrecio.text.clear()
+        txtCantidad.text.clear()
     }
     fun volver(){
 

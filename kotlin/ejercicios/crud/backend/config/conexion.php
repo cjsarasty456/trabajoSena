@@ -1,10 +1,14 @@
 <?php
     class conexion{
         private $servername = "localhost";
-        private $dbname = "id21094634_tiendaadso";
+        // private $dbname = "id21094634_tiendaadso";
+        // //private $dbname = "consultorio";
+        // private $username = "id21094634_carlos";
+        // private $password = "Carlos123,";
+        private $dbname = "tiendaadso";
         //private $dbname = "consultorio";
-        private $username = "id21094634_carlos";
-        private $password = "Carlos123,";
+        private $username = "root";
+        private $password = "";
         private $conn = "";
         
         function getConexion()
