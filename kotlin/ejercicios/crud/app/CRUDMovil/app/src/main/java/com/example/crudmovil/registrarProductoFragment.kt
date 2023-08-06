@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
+import com.example.crudmovil.controller.productoController
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,20 +34,17 @@ class registrarProductoFragment : Fragment() {
 
     lateinit var txtLog: EditText
 
-    var Nombre:String=""
-    var Descripcion:String=""
-    var Precio: String=""
-    var Cantidad:String=""
+
 
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+//    private var param1: String? = null
+//    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+//            param1 = it.getString(ARG_PARAM1)
+//            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -102,40 +97,18 @@ class registrarProductoFragment : Fragment() {
             txtPrecio.error = "El campo precio es requerido"
         }
         if (validacion) {
-            Nombre = txtNombre.text.toString()
-            Descripcion = txtDescripcion.text.toString()
-            Precio= txtPrecio.text.toString()
-            Cantidad = txtCantidad.text.toString()
-
-            val url ="https://laminose-salutes.000webhostapp.com/controller/productosController.php"
-//            val url ="http://127.0.0.1:8000/controller/productosController.php"
-            val queue = Volley.newRequestQueue(context)
-            val stringRequest = object : StringRequest(
-                Request.Method.POST, url,
-                Response.Listener<String> { response ->
-                    txtLog.setText(" ${txtLog.text.toString()}, ${response} ")
-//
-//                    }
-                }, Response.ErrorListener { error ->
-                    txtLog.setText(" ${txtLog.text.toString()}, ${error} ")
-
-                }
-            ) {
-                override fun getParams(): MutableMap<String, String> {
-
-                    val parametros = HashMap<String, String>()
-                    parametros.put("function", "guardarProducto")
-                    parametros.put("id", "0")
-                    parametros.put("nombre", Nombre)
-                    parametros.put("descripcion", Descripcion)
-                    parametros.put("precio", Precio)
-                    parametros.put("cantidad", Cantidad)
-                    parametros.put("imagen", " ")
-                    return parametros
-                }
-            }
-            queue.add(stringRequest)
-
+            var producto:productoController=productoController()
+            var retorno=producto.guardarProducto(
+                context,
+                0,
+                txtNombre.text.toString(),
+                txtDescripcion.text.toString(),
+                txtPrecio.text.toString(),
+                txtCantidad.text.toString(),
+                )
+            txtLog.setText(retorno)
+        }else {
+            txtLog.setText("Verifique el formulario")
         }
     }
     fun limpiarRegistro(){

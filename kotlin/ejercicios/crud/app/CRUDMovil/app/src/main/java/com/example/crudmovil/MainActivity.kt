@@ -13,5 +13,6 @@ class MainActivity : AppCompatActivity() {
         val transaction=manager.beginTransaction()
         transaction.add(R.id.frame_layout_main,registrarProductoFragment()).commit()
         transaction.addToBackStack(null)
+
     }
 }
