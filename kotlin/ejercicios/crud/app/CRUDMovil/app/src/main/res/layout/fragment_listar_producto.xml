@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".listarProductoFragment"
-    android:backgroundTint="#000000"
-    >
+    android:backgroundTint="#737272">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/LVProductos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/refreshButton"
 
         />
 </FrameLayout>

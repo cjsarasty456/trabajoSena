@@ -1,15 +1,19 @@
 package com.example.crudmovil
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.crudmovil.databinding.ActivityMainBinding
-import com.example.crudmovil.databinding.FragmentListarProductoBinding
+import com.example.crudmovil.controller.productoController
 import com.example.crudmovil.model.producto
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,49 +46,26 @@ class listarProductoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var  view=inflater.inflate(R.layout.fragment_listar_producto, container, false)
-        var producto:producto= producto(
-            0,
-            "papa",
-            "Libra",
-            "10000",
-            "50",
-            ""
-        )
-        listaProductos.add(producto)
-        producto= producto(
-            0,
-            "yuca",
-            "Kilo",
-            "5000",
-            "10",
-            ""
-        )
-        listaProductos.add(producto)
-        producto= producto(
-        0,
-        "papa",
-        "Libra",
-        "10000",
-        "50",
-        ""
-        )
-        listaProductos.add(producto)
-        producto= producto(
-            0,
-            "yuca",
-            "Kilo",
-            "5000",
-            "10",
-            ""
-        )
-        listaProductos.add(producto)
+        var view=inflater.inflate(R.layout.fragment_listar_producto, container, false)
         recycler=view.findViewById(R.id.LVProductos)
-        recycler.layoutManager=LinearLayoutManager(view.context)
-        recycler.adapter=recyclerProducto(view.context,listaProductos)
 
+        realizarConsulta(context)
         return view
     }
+fun realizarConsulta(context: Context?) {
+    var productoController=productoController()
+    GlobalScope.launch(Dispatchers.Main) {
+        try {
+            var tabla=productoController.fetchData(context)
+            recycler.layoutManager=LinearLayoutManager(context)
+            recycler.adapter=recyclerProducto(context,tabla)
+        } catch (e: Exception) {
+            Toast.makeText(context,"error",Toast.LENGTH_LONG).show()
+        }
+    }
+}
+
+
     companion object {
         /**
          * Use this factory method to create a new instance of

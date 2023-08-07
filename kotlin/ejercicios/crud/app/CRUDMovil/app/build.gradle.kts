@@ -43,6 +43,8 @@ dependencies {
 
     //se implementa la siguiente librería
     implementation("com.android.volley:volley:1.2.0")
+    implementation("com.google.code.gson:gson:2.8.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2") // Reemplaza 1.5.2 con la versión más reciente de kotlinx.coroutines
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

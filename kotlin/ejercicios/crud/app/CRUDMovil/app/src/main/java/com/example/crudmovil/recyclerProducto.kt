@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.crudmovil.model.producto
 
 class recyclerProducto
-    (var context:Context, var listaProductos:MutableList<producto>):
+    (var context:Context?, var listaProductos:MutableList<producto>):
     RecyclerView.Adapter<recyclerProducto.MyHolder>() {
 
         inner class MyHolder(Itemview: View):RecyclerView.ViewHolder(Itemview){
