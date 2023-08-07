@@ -61,7 +61,6 @@ class registrarProductoFragment : Fragment() {
         btnLimpiar= view.findViewById(R.id.btnLimpiar)
         btnVolver= view.findViewById(R.id.btnVolver)
         btnImagen= view.findViewById(R.id.btnImagen)
-        txtLog=view.findViewById(R.id.txtLog)
 
         btnGuardar.setOnClickListener{
             guardarRegistro()

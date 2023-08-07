@@ -5,24 +5,25 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="10dp"
     tools:context=".registrarProductoFragment">
 
     <MultiAutoCompleteTextView
         android:id="@+id/txtDescripcion"
-        android:layout_width="365dp"
+        android:layout_width="409dp"
         android:layout_height="183dp"
         android:layout_marginEnd="16dp"
         android:hint="Descripción"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.117" />
 
     <EditText
         android:id="@+id/txtPrecio"
-        android:layout_width="365dp"
+        android:layout_width="409dp"
         android:layout_height="57dp"
         android:layout_marginEnd="12dp"
         android:ems="10"
@@ -30,14 +31,14 @@
         android:inputType="number|numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.617"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.324" />
+        app:layout_constraintVertical_bias="0.322" />
 
     <EditText
         android:id="@+id/txtCantidad"
-        android:layout_width="365dp"
+        android:layout_width="409dp"
         android:layout_height="52dp"
         android:layout_marginEnd="12dp"
         android:ems="10"
@@ -45,14 +46,14 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.617"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.397" />
+        app:layout_constraintVertical_bias="0.396" />
 
     <EditText
         android:id="@+id/txtNombre"
-        android:layout_width="365dp"
+        android:layout_width="409dp"
         android:layout_height="43dp"
         android:layout_marginEnd="21dp"
         android:ems="10"
@@ -60,10 +61,10 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019" />
+        app:layout_constraintVertical_bias="0.018" />
 
     <TextView
         android:id="@+id/textView2"
@@ -91,10 +92,11 @@
 
     <Button
         android:id="@+id/btnLimpiar"
-        android:layout_width="365dp"
+        android:layout_width="409dp"
         android:layout_height="43dp"
         android:text="Limpiar"
         android:textSize="14sp"
+        app:cornerRadius="0dp"
         app:icon="@drawable/cleaning"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,10 +107,11 @@
 
     <Button
         android:id="@+id/btnGuardar"
-        android:layout_width="365dp"
+        android:layout_width="409dp"
         android:layout_height="43dp"
         android:text="Guardar"
         android:textSize="14sp"
+        app:cornerRadius="0dp"
         app:icon="@drawable/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,10 +121,11 @@
 
     <Button
         android:id="@+id/btnVolver"
-        android:layout_width="365dp"
+        android:layout_width="409dp"
         android:layout_height="43dp"
         android:text="volver"
         android:textSize="12sp"
+        app:cornerRadius="0dp"
         app:icon="@drawable/navigate_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,6 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Anexar Imagen"
+        app:cornerRadius="0dp"
         app:icon="@drawable/attach_file"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,24 +147,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.541" />
-
-    <EditText
-        android:id="@+id/txtLog"
-        android:layout_width="365dp"
-        android:layout_height="123dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="723dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="68dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.235"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

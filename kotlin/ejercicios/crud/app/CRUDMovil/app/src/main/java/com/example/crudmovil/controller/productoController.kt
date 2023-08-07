@@ -14,14 +14,17 @@ import java.lang.Exception
 class productoController{
 
    private var url ="https://laminose-salutes.000webhostapp.com/controller/productosController.php"
-    private var producto: producto = producto()
+    lateinit var producto: producto
     fun guardarProducto(context:Context?,id:Int,nombre:String,descripcion:String,precio:String,cantidad:String):String{
         try {
-            producto.id = id
-            producto.nombre = nombre
-            producto.descripcion = descripcion
-            producto.precio = precio
-            producto.cantidad = cantidad
+            producto(
+                id,
+                nombre,
+                descripcion,
+                precio,
+                cantidad,
+                ""
+            )
             var retorno: String = ""
             val queue = Volley.newRequestQueue(context)
             val stringRequest = object : StringRequest(
@@ -56,4 +59,4 @@ class productoController{
         }
     }
 
-    }
+}

@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         //habilitar el frame inicial
         val manager=supportFragmentManager
         val transaction=manager.beginTransaction()
-        transaction.add(R.id.frame_layout_main,registrarProductoFragment()).commit()
+        transaction.add(R.id.frame_layout_main,listarProductoFragment()).commit()
         transaction.addToBackStack(null)
 
     }
