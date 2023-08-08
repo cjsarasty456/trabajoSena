@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -11,6 +12,7 @@ import com.example.crudmovil.config.config
 import com.example.crudmovil.model.producto
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
 import java.util.concurrent.CountDownLatch
@@ -106,6 +108,7 @@ class productoController{
 
                     val parametros = HashMap<String, String>()
                     parametros.put("function", "consultarListaProductos")
+                    parametros.put("filtro", "")
                     return parametros
                 }
             }
@@ -121,6 +124,62 @@ class productoController{
 
 
         return ListaProductos
+    }
+
+    suspend fun consultarProductoporId(context:Context?,producto_id:Int): producto {
+        ListaProductos= mutableListOf<producto>()
+        producto=producto(0,"","","","","")
+        try {
+            val queue = Volley.newRequestQueue(context)
+            var respuesta=""
+            val stringRequest = object : StringRequest(
+                Request.Method.POST, url,
+                Response.Listener<String> { response ->
+//                txtLog.setText(" ${txtLog.text.toString()}, ${response} ")
+                    val gson: Gson = Gson()
+                    ListaProductos = gson.fromJson(
+                        response,
+                        object : TypeToken<MutableList<producto>>() {}.type
+                    )
+                    producto=ListaProductos[0]
+
+//                    Toast.makeText(
+//                        context,
+//                        "Se guardo correctamente: ${response}",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+                    respuesta=response
+//                    Toast.makeText(context, "Error al guardar: ${error.message}",Toast.LENGTH_LONG).show()
+                }, Response.ErrorListener { error ->
+//                    Toast.makeText(
+//                        context,
+//                        "Error al guardar: ${error.message}",
+//                        Toast.LENGTH_LONG
+//                    ).show()
+                    respuesta=error.message.toString()
+
+                }
+            ) {
+                override fun getParams(): MutableMap<String, String> {
+
+                    val parametros = HashMap<String, String>()
+                    parametros.put("function", "consultarProductoPorCodigo")
+                    parametros.put("id", producto_id.toString())
+                    return parametros
+                }
+            }
+            queue.add(stringRequest)
+            // Esperar a que la solicitud termine (forma segura)
+            while (respuesta=="" && producto.id==0) {
+                kotlinx.coroutines.delay(500) // Pausa de 100 ms
+            }
+        } catch (error: Exception) {
+            println(error.message)
+        }
+
+
+
+        return producto
     }
 }
 

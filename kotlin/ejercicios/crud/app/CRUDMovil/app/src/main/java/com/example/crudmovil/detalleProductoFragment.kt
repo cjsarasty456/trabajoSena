@@ -5,6 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.crudmovil.controller.productoController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,16 +25,17 @@ private const val ARG_PARAM2 = "param2"
  */
 class detalleProductoFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private var producto_id:Int=0
+    private lateinit var lblId:TextView
+    private lateinit var lblNombre:TextView
+    private lateinit var lblDescripcion:TextView
+    private lateinit var lblPrecio:TextView
+    private lateinit var lblCantidad:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             producto_id=it.getInt("producto_id")
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -36,7 +44,28 @@ class detalleProductoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalle_producto, container, false)
+        var view=inflater.inflate(R.layout.fragment_detalle_producto, container, false)
+        lblId=view.findViewById<TextView>(R.id.lblId)
+        lblNombre=view.findViewById<TextView>(R.id.lblNombre)
+        lblDescripcion=view.findViewById<TextView>(R.id.lblDescripción)
+        lblPrecio=view.findViewById<TextView>(R.id.lblPrecio)
+        lblCantidad=view.findViewById<TextView>(R.id.lblCantidad)
+        var productoController=productoController()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                var producto=productoController.consultarProductoporId(context,producto_id)
+                lblId.text=producto.id.toString()
+                lblNombre.text=producto.nombre.toString()
+                lblDescripcion.text=producto.descripcion.toString()
+                lblPrecio.text=producto.precio.toString()
+                lblCantidad.text=producto.cantidad.toString()
+
+            } catch (e: Exception) {
+                Toast.makeText(context,"error", Toast.LENGTH_LONG).show()
+            }
+        }
+        return view
     }
 
     companion object {
