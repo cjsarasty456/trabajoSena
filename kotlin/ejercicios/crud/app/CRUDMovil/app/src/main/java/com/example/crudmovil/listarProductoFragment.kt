@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudmovil.controller.productoController
 import com.example.crudmovil.model.producto
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -50,15 +51,34 @@ class listarProductoFragment : Fragment() {
         recycler=view.findViewById(R.id.LVProductos)
 
         realizarConsulta(context)
+        var btnAnadir=view.findViewById<FloatingActionButton>(R.id.btnAnadir)
+        btnAnadir.setOnClickListener{
+            val transaction=requireFragmentManager().beginTransaction()
+            transaction.replace(R.id.frame_layout_main,registrarProductoFragment()).commit()
+            transaction.addToBackStack(null)
+        }
+
         return view
     }
 fun realizarConsulta(context: Context?) {
     var productoController=productoController()
     GlobalScope.launch(Dispatchers.Main) {
         try {
-            var tabla=productoController.fetchData(context)
+            listaProductos=productoController.consultarListaProductos(context)
             recycler.layoutManager=LinearLayoutManager(context)
-            recycler.adapter=recyclerProducto(context,tabla)
+            var adapter=recyclerProducto(context,listaProductos)
+            adapter.onItemClick={
+//                            Toast.makeText(context,"item ${it.nombre}", Toast.LENGTH_LONG).show()
+                val bundle=Bundle()
+                bundle.putInt("producto_id",it.id)
+                val transaction=requireFragmentManager().beginTransaction()
+                var fragmento=detalleProductoFragment()
+                fragmento.arguments=bundle
+                transaction.replace(R.id.frame_layout_main,fragmento).commit()
+                transaction.addToBackStack(null)
+
+            }
+            recycler.adapter=adapter
         } catch (e: Exception) {
             Toast.makeText(context,"error",Toast.LENGTH_LONG).show()
         }

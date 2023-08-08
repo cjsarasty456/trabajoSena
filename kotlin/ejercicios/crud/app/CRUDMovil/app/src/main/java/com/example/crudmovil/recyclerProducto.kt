@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudmovil.model.producto
 
 class recyclerProducto
     (var context:Context?, var listaProductos:MutableList<producto>):
     RecyclerView.Adapter<recyclerProducto.MyHolder>() {
+
+    var onItemClick:((producto)->Unit)?=null
 
         inner class MyHolder(Itemview: View):RecyclerView.ViewHolder(Itemview){
             lateinit var nombre:TextView
@@ -34,5 +38,9 @@ class recyclerProducto
         var producto=listaProductos[position]
         holder.nombre.text=producto.nombre
         holder.precio.text=producto.precio
+        holder.itemView.setOnClickListener{
+//            Toast.makeText(context,"item ${producto.nombre}", Toast.LENGTH_LONG).show()
+           onItemClick?.invoke(producto)
+        }
     }
 }

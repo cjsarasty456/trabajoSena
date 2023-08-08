@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10sp"
@@ -8,39 +9,46 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#878585"
+        android:backgroundTint="#FFFFFF"
+        app:cardCornerRadius="10dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp"
         >
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:weightSum="100"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:weightSum="100">
+
             <TableRow
                 android:layout_width="0dp"
-                android:layout_weight="30"
                 android:layout_height="wrap_content"
-                >
+                android:layout_weight="30">
+
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
+                    android:layout_height="match_parent">
 
                 </Button>
             </TableRow>
+
             <TableRow
                 android:layout_width="0dp"
-                android:layout_weight="70"
                 android:layout_height="wrap_content"
-                >
+                android:layout_weight="70">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
+
                         <TextView
                             android:id="@+id/lblNombre"
                             android:layout_width="wrap_content"
@@ -51,10 +59,11 @@
 
                             />
                     </TableRow>
+
                     <TableRow
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
+                        android:layout_height="wrap_content">
+
                         <TextView
                             android:id="@+id/lblPrecio"
                             android:layout_width="wrap_content"
@@ -62,8 +71,7 @@
                             android:layout_marginLeft="0dp"
                             android:layout_marginTop="0dp"
                             android:text="Precio"
-                            android:textSize="15sp"
-                            />
+                            android:textSize="15sp" />
                     </TableRow>
                 </LinearLayout>
             </TableRow>

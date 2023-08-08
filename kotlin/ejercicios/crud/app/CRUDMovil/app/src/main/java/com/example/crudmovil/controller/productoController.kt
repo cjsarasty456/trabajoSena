@@ -17,12 +17,13 @@ import java.util.concurrent.CountDownLatch
 
 class productoController{
     var config: config =config()
-   private var url =config.urlBase+"controller/productosController.php "
+   private var url =config.urlBase+"controller/productosController.php"
     lateinit var producto: producto
     lateinit var ListaProductos:MutableList<producto>
     fun guardarProducto(context:Context?,id:Int,nombre:String,descripcion:String,precio:String,cantidad:String):String{
+        var retorno="";
         try {
-            producto(
+            producto=producto(
                 id,
                 nombre,
                 descripcion,
@@ -30,22 +31,24 @@ class productoController{
                 cantidad,
                 ""
             )
-            var retorno: String = ""
-            val queue = Volley.newRequestQueue(context)
-            val stringRequest = object : StringRequest(
-                Request.Method.POST, url,
+            // Parámetros de la solicitud POST
+
+
+            // Realizar la solicitud POST con parámetros
+            val request = object : StringRequest(Request.Method.POST, url,
                 Response.Listener<String> { response ->
-//                txtLog.setText(" ${txtLog.text.toString()}, ${response} ")
-                    Toast.makeText(context, "Se guardo correctamente: ${response}",Toast.LENGTH_LONG).show()
-//                    Toast.makeText(context, "Error al guardar: ${error.message}",Toast.LENGTH_LONG).show()
-                }, Response.ErrorListener { error ->
-                    Toast.makeText(context, "Error al guardar: ${error.message}",Toast.LENGTH_LONG).show()
-
-                }
-            ) {
-                override fun getParams(): MutableMap<String, String> {
-
-                    val parametros = HashMap<String, String>()
+                    // Procesar la respuesta String
+                    val result = response
+                    // Aquí puedes manejar la respuesta como desees
+                },
+                Response.ErrorListener { error ->
+                    // Manejar errores de la solicitud
+                    val errorMessage = error.message
+                }) {
+                // Agregar los parámetros a la solicitud
+                override fun getParams(): Map<String, String> {
+                    var
+                            parametros = HashMap<String, String>()
                     parametros.put("function", "guardarProducto")
                     parametros.put("id", producto.id.toString())
                     parametros.put("nombre", producto.nombre)
@@ -56,15 +59,18 @@ class productoController{
                     return parametros
                 }
             }
-            queue.add(stringRequest)
-            return retorno
+
+            // Agregar la solicitud a la cola de Volley
+            val queue = Volley.newRequestQueue(context)
+            queue.add(request)
+
         }catch (error:Exception){
-            println(error.message)
-            return ""
+            retorno=error.message.toString()
         }
+        return retorno
     }
 
-    suspend fun fetchData(context:Context?): MutableList<producto> {
+    suspend fun consultarListaProductos(context:Context?): MutableList<producto> {
         ListaProductos= mutableListOf<producto>()
         try {
             val queue = Volley.newRequestQueue(context)
@@ -100,12 +106,6 @@ class productoController{
 
                     val parametros = HashMap<String, String>()
                     parametros.put("function", "consultarListaProductos")
-//                    parametros.put("id", producto.id.toString())
-//                    parametros.put("nombre", producto.nombre)
-//                    parametros.put("descripcion", producto.descripcion)
-//                    parametros.put("precio", producto.precio.toString())
-//                    parametros.put("cantidad", producto.cantidad.toString())
-//                    parametros.put("imagen", " ")
                     return parametros
                 }
             }
