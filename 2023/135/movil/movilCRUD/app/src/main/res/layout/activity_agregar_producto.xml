@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registrarProductoFragment"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar producto"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10sp"
+        />
+    <EditText
+        android:id="@+id/txtNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre producto"
+        android:tooltipText="Ejemplo: Papa"
+        android:layout_marginBottom="10sp"
+        />
+
+    <EditText
+        android:id="@+id/txtDescripcion"
+        android:hint="Descripción"
+        android:tooltipText="Ejemplo: Libra a granel"
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="10sp"/>
+    <EditText
+        android:id="@+id/txtPrecio"
+        android:hint="Precio del Articulo"
+        android:tooltipText="Ejemplo: 10000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal"
+        android:layout_marginBottom="10sp"/>
+    <EditText
+        android:id="@+id/txtCantidad"
+        android:hint="Cantidad del Articulo"
+        android:tooltipText="Ejemplo: 10000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_marginBottom="10sp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btnImagen"
+            android:text="Anexar imagen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        </ImageView>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnVolver"
+        android:text="Volver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:id="@+id/btnGuardar"
+        android:text="Guardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:id="@+id/btnLimpiar"
+        android:text="Limpiar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <EditText
+        android:id="@+id/txtLog"
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+</LinearLayout>
