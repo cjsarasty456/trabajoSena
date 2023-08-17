@@ -1,0 +1,22 @@
+ val url = "https://laminose-salutes.000webhostapp.com/controller/productosController.php?function=consultarListaProductos"
+        val queue = Volley.newRequestQueue(this)
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            Response.Listener<String> { response ->
+            try{
+//                txtTexto.text=response
+                val json=JSONArray(response)
+                var prueba="hola"
+//                txtTexto.text=json.toString()
+                for(i in 0 until json.length()){
+                    val registro=json.getJSONObject(i)
+                    Toast.makeText(this,registro.getString("nombre"),Toast.LENGTH_LONG).show()
+                }
+            }catch (e:JSONException){
+                txtTexto.text="Error"
+            }
+            },Response.ErrorListener { error->
+                txtTexto.text="Error Petición ${error}"
+            }
+            )
+        queue.add(stringRequest)
