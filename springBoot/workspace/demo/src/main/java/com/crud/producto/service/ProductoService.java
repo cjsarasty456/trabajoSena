@@ -1,7 +1,7 @@
 package com.crud.producto.service;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +23,9 @@ public class ProductoService implements IproductoService {
 	}
 
 	@Override
-	public Productos consultarProductoId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Productos> consultarProductoId(int id) {
+		
+		return data.findById(id);
 	}
 
 	@Override
@@ -37,10 +37,11 @@ public class ProductoService implements IproductoService {
 		}
 		return res;
 	}
-
+	
 	@Override
 	public void eliminar(int id) {
 		// TODO Auto-generated method stub
+		data.deleteById(id);
 		
 	}
 

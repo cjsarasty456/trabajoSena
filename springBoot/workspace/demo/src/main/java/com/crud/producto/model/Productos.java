@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 public class Productos {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column (name="id", nullable=false)
 	private int id;
 	@Column( name="nombre", nullable = false, length = 35)
 	private String nombre;
@@ -21,17 +22,20 @@ public class Productos {
 	private double precio;
 	@Column( name="cantidad", nullable = false, length = 11)
 	private int cantidad;
+	@Column( name="imagen", nullable = false, length = 35)
+	private String imagen;
 		
 	public Productos() {
 		super();
 	}
-	public Productos(int id, String nombre, String descripcion, double precio, int cantidad) {
+	public Productos(int id, String nombre, String descripcion, double precio, int cantidad, String imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
 		this.cantidad = cantidad;
+		this.imagen=imagen;
 	}
 	public int getId() {
 		return id;
@@ -62,6 +66,12 @@ public class Productos {
 	}
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 	
 }

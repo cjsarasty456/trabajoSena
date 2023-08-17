@@ -1,8 +1,9 @@
 package com.crud.producto.controller;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,14 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.crud.producto.interfaceService.IproductoService;
 import com.crud.producto.model.Productos;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
+import com.crud.producto.model.respuesta;
 
-import jakarta.persistence.Entity;
-import netscape.javascript.JSObject;
 
 @Controller
 @RequestMapping
@@ -37,7 +38,7 @@ public class productoController {
 	@GetMapping("/nuevoProducto")
 	public String nuevoProducto(Model model) {
 		
-		return "agregar";
+		return "formAgregar";
 	}
 	
 	@GetMapping("/guardarProducto")
@@ -46,21 +47,54 @@ public class productoController {
 		return "redirect:/listarweb";
 	}
 	
+	@GetMapping("/formEditar/{id}")
+	public String formEditar(@PathVariable int id, Model model) {
+		Optional<Productos>Producto=service.consultarProductoId(id);
+		model.addAttribute("producto",Producto);
+		return "formEditar";
+	}
+	
 	//json
-	@GetMapping("/listarjson")
-	public ResponseEntity<Object> consultarListaProductosJson(Model model) {
+	@PostMapping("/listarjson")
+	public ResponseEntity<Object> consultarListaProductosJson() {
 		List<Productos> listaProductos= service.consultarListaProductos();
 		
 		return new ResponseEntity<> (listaProductos, HttpStatus.OK);
 	}
-	
-	@GetMapping("/guardarProductoJson")
-	public String guardarProductoJson(@Validated Productos producto, Model model) {
-		service.guardar(producto);
-		HashMap<String, String> retorno=new HashMap<String,String>();
-		retorno.put("status","Ok");
-		retorno.put("message","Se guardó correctamente");
-		return "redirect:/listarweb";
+	@PostMapping("/consultarjson")
+	public ResponseEntity<Object> consultarProductoJson(int id) {
+		Optional<Productos> listaProductos= service.consultarProductoId(id);
+		
+		return new ResponseEntity<> (listaProductos, HttpStatus.OK);
 	}
+	
+	@PostMapping("/guardarProductoJson")
+	public ResponseEntity<Object> guardarProductoJson( Productos producto) {
+		int retorno=service.guardar(producto);
+		if(retorno==0) {	
+			respuesta respuesta=new respuesta(
+				"ok",
+				"Se guardó correctamente"
+				);
+			return new ResponseEntity<> (respuesta, HttpStatus.OK);
+		}else {
+			respuesta respuesta=new respuesta(
+						"error",
+						"Error al guardar"
+						);
+			return new ResponseEntity<> (respuesta, HttpStatus.OK);
+		}
+		
+	}
+	@PostMapping("/eliminarjson")
+	public ResponseEntity<Object> eliminarProductoJson(int id) {
+		service.eliminar(id);
+		respuesta respuesta=new respuesta(
+				"ok",
+				"Se Elimino correctamente"
+				);
+			return new ResponseEntity<> (respuesta, HttpStatus.OK);
+	}
+	
 
 }
