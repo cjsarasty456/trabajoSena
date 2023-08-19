@@ -14,6 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.crud.producto.interfaceService.IproductoService;
@@ -61,15 +63,15 @@ public class productoController {
 		
 		return new ResponseEntity<> (listaProductos, HttpStatus.OK);
 	}
-	@PostMapping("/consultarjson")
-	public ResponseEntity<Object> consultarProductoJson(int id) {
+	@GetMapping("/consultarjson/{id}")
+	public ResponseEntity<Object> consultarProductoJson(@PathVariable int id) {
 		Optional<Productos> listaProductos= service.consultarProductoId(id);
 		
 		return new ResponseEntity<> (listaProductos, HttpStatus.OK);
 	}
 	
 	@PostMapping("/guardarProductoJson")
-	public ResponseEntity<Object> guardarProductoJson( Productos producto) {
+	public ResponseEntity<Object> guardarProductoJson(@RequestBody Productos producto) {
 		int retorno=service.guardar(producto);
 		if(retorno==0) {	
 			respuesta respuesta=new respuesta(
