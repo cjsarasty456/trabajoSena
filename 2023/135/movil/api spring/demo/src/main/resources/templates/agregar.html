@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Agregar Producto</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+	<div class="card">
+		<div class="card-body">
+			<h1 class="card-title">Agregar Producto</h1>
+			<form action="/guardarProducto" method="get">
+				<label>Nombre:</label>
+				<input type="text" class="form-control" name="nombre">
+				<label>Descripción:</label>
+				<textarea type="text" class="form-control" name="descripcion"></textarea>
+				<label>cantidad:</label>
+				<input type="number" class="form-control" name="cantidad">
+				<label>precio:</label>
+				<input type="number" step="0.1" class="form-control" name="precio">
+				
+				<button type="submit" class="btn btn-success">Envíar</button>
+				<button type="reset" class="btn btn-secondary">Limpiar</button>
+			</form>
+		</div>
+	</div>
+</div>
+</body>
+</html>
