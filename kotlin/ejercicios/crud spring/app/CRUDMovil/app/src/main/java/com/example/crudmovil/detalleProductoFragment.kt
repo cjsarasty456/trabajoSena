@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,9 +15,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -31,6 +29,8 @@ class detalleProductoFragment : Fragment() {
     private lateinit var lblDescripcion:TextView
     private lateinit var lblPrecio:TextView
     private lateinit var lblCantidad:TextView
+
+    private lateinit var btnEditar:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +50,9 @@ class detalleProductoFragment : Fragment() {
         lblDescripcion=view.findViewById<TextView>(R.id.lblDescripción)
         lblPrecio=view.findViewById<TextView>(R.id.lblPrecio)
         lblCantidad=view.findViewById<TextView>(R.id.lblCantidad)
+
+        btnEditar=view.findViewById(R.id.btnEditar)
+
         var productoController=productoController()
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -64,6 +67,16 @@ class detalleProductoFragment : Fragment() {
             } catch (e: Exception) {
                 Toast.makeText(context,"error ${e.message}", Toast.LENGTH_LONG).show()
             }
+        }
+
+        btnEditar.setOnClickListener {
+            val bundle=Bundle()
+            bundle.putInt("producto_id",producto_id)
+            val transaction=requireFragmentManager().beginTransaction()
+            var fragmento=editarFragment()
+            fragmento.arguments=bundle
+            transaction.replace(R.id.frame_layout_main,fragmento).commit()
+            transaction.addToBackStack(null)
         }
         return view
     }
@@ -81,10 +94,6 @@ class detalleProductoFragment : Fragment() {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             detalleProductoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
             }
     }
 }

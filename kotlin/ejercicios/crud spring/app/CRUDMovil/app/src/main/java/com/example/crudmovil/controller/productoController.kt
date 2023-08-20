@@ -50,11 +50,12 @@ class productoController{
                 Request.Method.POST, url, parametros,
                 Response.Listener { response ->
                     // Manejar la respuesta del servidor (si es necesario)
-                    var prueba=response
+                    Toast.makeText(context,"Se guardó correctamente el producto", Toast.LENGTH_LONG).show()
                 },
                 Response.ErrorListener { error ->
                     // Manejar el error (si ocurre)
                     var prueba=error.message
+                    Toast.makeText(context,"Error al guardar: ${error.message}", Toast.LENGTH_LONG).show()
                 }
             )
 
@@ -63,7 +64,7 @@ class productoController{
             queue.add(request)
 
         }catch (error:Exception){
-            retorno=error.message.toString()
+            Toast.makeText(context,"Error: ${error.message}", Toast.LENGTH_LONG).show()
         }
         return retorno
     }
@@ -83,20 +84,8 @@ class productoController{
                         response,
                         object : TypeToken<MutableList<producto>>() {}.type
                     )
-
-//                    Toast.makeText(
-//                        context,
-//                        "Se guardo correctamente: ${response}",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-                    respuesta=response
-//                    Toast.makeText(context, "Error al guardar: ${error.message}",Toast.LENGTH_LONG).show()
                 }, Response.ErrorListener { error ->
-//                    Toast.makeText(
-//                        context,
-//                        "Error al guardar: ${error.message}",
-//                        Toast.LENGTH_LONG
-//                    ).show()
+                    Toast.makeText(context,"Error al consultar: ${error.message}", Toast.LENGTH_LONG).show()
                     respuesta=error.message.toString()
 
                 }
@@ -115,7 +104,7 @@ class productoController{
                 kotlinx.coroutines.delay(500) // Pausa de 100 ms
             }
         } catch (error: Exception) {
-            println(error.message)
+            Toast.makeText(context,"Error interno: ${error.message}", Toast.LENGTH_LONG).show()
         }
 
 
@@ -140,22 +129,8 @@ class productoController{
                         object : TypeToken<MutableList<producto>>() {}.type
                     )
                     producto=ListaProductos[0]
-
-                    Toast.makeText(
-                       context,
-                        "Se guardo correctamente: ${response}",
-                        Toast.LENGTH_LONG
-                   ).show()
-                    respuesta=response
-
                 }, Response.ErrorListener { error ->
-                    Toast.makeText(
-                       context,
-                        "Error al guardar: ${error.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    respuesta=error.message.toString()
-
+                    Toast.makeText(context,"Error al consultar: ${error.message}", Toast.LENGTH_LONG).show()
                 }
             )
             queue.add(stringRequest)
@@ -164,11 +139,8 @@ class productoController{
                 kotlinx.coroutines.delay(500) // Pausa de 100 ms
             }
         } catch (error: Exception) {
-            println(error.message)
+            Toast.makeText(context,"Error al consultar: ${error.message}", Toast.LENGTH_LONG).show()
         }
-
-
-
         return producto
     }
 }

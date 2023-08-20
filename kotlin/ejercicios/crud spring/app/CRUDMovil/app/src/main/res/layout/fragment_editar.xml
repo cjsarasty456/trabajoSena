@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detalleProductoFragment"
+    tools:context=".editarFragment"
     android:orientation="vertical"
     android:layout_margin="10sp"
     >
@@ -12,7 +12,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Detalle producto"
+        android:text="Edición producto"
         android:textAlignment="center"
         android:textSize="30sp"
         android:layout_marginBottom="10sp"
@@ -25,11 +25,11 @@
         android:textStyle="bold"
         android:textSize="15sp"
         />
-    <TextView
-        android:id="@+id/lblId"
+    <EditText
+        android:id="@+id/txtId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="lorem ipsum"
+        android:text=""
         android:layout_marginBottom="10sp"
         />
     <TextView
@@ -40,11 +40,11 @@
         android:textStyle="bold"
         android:textSize="15sp"
         />
-    <TextView
-        android:id="@+id/lblNombre"
+    <EditText
+        android:id="@+id/txtNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="lorem ipsum"
+        android:text=""
         android:textSize="15sp"
         />
     <TextView
@@ -55,13 +55,14 @@
         android:textStyle="bold"
         android:textSize="15sp"
         />
-    <TextView
-        android:id="@+id/lblDescripción"
+
+    <EditText
+        android:id="@+id/txtDescripción"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id rhoncus arcu. Quisque ullamcorper suscipit enim at mattis. Vivamus id dapibus nisl. Nunc egestas massa eu purus sodales auctor. Praesent efficitur in leo id viverra. Phasellus malesuada finibus ipsum, id consequat mauris condimentum nec."
-        android:textSize="15sp"
-        />
+        android:layout_height="90dp"
+        android:inputType="textMultiLine"
+        android:text=""
+        android:textSize="15sp" />
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
@@ -70,11 +71,11 @@
         android:textStyle="bold"
         android:textSize="15sp"
         />
-    <TextView
-        android:id="@+id/lblPrecio"
+    <EditText
+        android:id="@+id/txtPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="lorem ipsum"
+        android:inputType="numberDecimal"
         android:textSize="15sp"
         />
     <TextView
@@ -85,11 +86,11 @@
         android:textStyle="bold"
         android:textSize="15sp"
         />
-    <TextView
-        android:id="@+id/lblCantidad"
+    <EditText
+        android:id="@+id/txtCantidad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="lorem ipsum"
+        android:inputType="number"
         android:textSize="15sp"
         />
 
@@ -99,21 +100,12 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnEditar"
+            android:id="@+id/btnGuardar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#FFC107"
-            android:text="Editar"
-            android:textColor="#000000" />
-
-        <Button
-            android:id="@+id/btnEliminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#FF0000"
-            android:text="Eliminar" />
+            android:backgroundTint="#4CAF50"
+            android:text="Guardar" />
     </LinearLayout>
 
 </LinearLayout>

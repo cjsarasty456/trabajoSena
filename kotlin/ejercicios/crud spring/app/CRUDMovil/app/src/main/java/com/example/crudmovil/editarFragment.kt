@@ -7,8 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import com.example.crudmovil.controller.productoController
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,34 +21,24 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [registrarProductoFragment.newInstance] factory method to
+ * Use the [editarFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class registrarProductoFragment : Fragment() {
-
-    lateinit var txtNombre: EditText
-    lateinit var txtDescripcion: EditText
-    lateinit var txtPrecio: EditText
-    lateinit var txtCantidad: EditText
-    lateinit var txtImagen: EditText
-    lateinit var btnVolver: Button
-    lateinit var btnLimpiar: Button
-    lateinit var btnGuardar: Button
-    lateinit var btnImagen: Button
-
-    lateinit var txtLog: EditText
-
-
-
+class editarFragment : Fragment() {
     // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
+    private var producto_id:Int=0
+    private lateinit var txtId: EditText
+    private lateinit var txtNombre: EditText
+    private lateinit var txtDescripcion: EditText
+    private lateinit var txtPrecio: EditText
+    private lateinit var txtCantidad: EditText
+
+    private lateinit var btnGuardar:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
+            producto_id=it.getInt("producto_id")
         }
     }
 
@@ -52,27 +46,34 @@ class registrarProductoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val  view=inflater.inflate(R.layout.fragment_registrar_producto, container, false)
-        txtNombre= view.findViewById(R.id.txtNombre)
-        txtDescripcion= view.findViewById(R.id.txtDescripcion)
-        txtPrecio= view.findViewById(R.id.txtPrecio)
-        txtCantidad= view.findViewById(R.id.txtCantidad)
-        btnGuardar= view.findViewById(R.id.btnGuardar)
-        btnLimpiar= view.findViewById(R.id.btnLimpiar)
-        btnVolver= view.findViewById(R.id.btnVolver)
-        btnImagen= view.findViewById(R.id.btnImagen)
-        txtLog=view.findViewById(R.id.txtLog)
-        btnGuardar.setOnClickListener{
+        // Inflate the layout for this fragment
+        var view = inflater.inflate(R.layout.fragment_editar, container, false)
+        txtId = view.findViewById<EditText>(R.id.txtId)
+        txtNombre = view.findViewById<EditText>(R.id.txtNombre)
+        txtDescripcion = view.findViewById<EditText>(R.id.txtDescripción)
+        txtPrecio = view.findViewById<EditText>(R.id.txtPrecio)
+        txtCantidad = view.findViewById<EditText>(R.id.txtCantidad)
+        var productoController = productoController()
+
+        btnGuardar=view.findViewById(R.id.btnGuardar)
+
+        btnGuardar.setOnClickListener {
             guardarRegistro()
         }
-        btnLimpiar.setOnClickListener {
-            limpiarRegistro()
-        }
-        btnVolver.setOnClickListener {
-            volver()
-        }
 
-        // Inflate the layout for this fragment
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                var producto = productoController.consultarProductoporId(context, producto_id)
+                txtId.setText(producto.id.toString())
+                txtNombre.setText(producto.nombre.toString())
+                txtDescripcion.setText(producto.descripcion.toString())
+                txtPrecio.setText(producto.precio.toString())
+                txtCantidad.setText(producto.cantidad.toString())
+
+            } catch (e: Exception) {
+                Toast.makeText(context, "error ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
         return view
     }
 
@@ -103,20 +104,10 @@ class registrarProductoFragment : Fragment() {
                 txtDescripcion.text.toString(),
                 txtPrecio.text.toString(),
                 txtCantidad.text.toString(),
-                )
-            txtLog.setText(retorno)
+            )
         }else {
-            txtLog.setText("Verifique el formulario")
+            Toast.makeText(context,"Error guardar, intente proximamente",Toast.LENGTH_LONG).show()
         }
-    }
-    fun limpiarRegistro(){
-        txtNombre.text.clear()
-        txtDescripcion.text.clear()
-        txtPrecio.text.clear()
-        txtCantidad.text.clear()
-    }
-    fun volver(){
-
     }
 
     companion object {
@@ -126,16 +117,12 @@ class registrarProductoFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment registrarProductoFragment.
+         * @return A new instance of fragment editarFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            registrarProductoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+            editarFragment().apply {
             }
     }
 }
