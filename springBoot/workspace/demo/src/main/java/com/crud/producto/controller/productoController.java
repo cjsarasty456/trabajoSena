@@ -57,7 +57,7 @@ public class productoController {
 	}
 	
 	//json
-	@PostMapping("/listarjson")
+	@GetMapping("/listarjson")
 	public ResponseEntity<Object> consultarListaProductosJson() {
 		List<Productos> listaProductos= service.consultarListaProductos();
 		
@@ -71,7 +71,8 @@ public class productoController {
 	}
 	
 	@PostMapping("/guardarProductoJson")
-	public ResponseEntity<Object> guardarProductoJson(@RequestBody Productos producto) {
+	//eliminar @RequestBody 
+	public ResponseEntity<Object> guardarProductoJson(Productos producto) {
 		int retorno=service.guardar(producto);
 		if(retorno==0) {	
 			respuesta respuesta=new respuesta(
@@ -88,8 +89,8 @@ public class productoController {
 		}
 		
 	}
-	@PostMapping("/eliminarjson")
-	public ResponseEntity<Object> eliminarProductoJson(int id) {
+	@GetMapping("/eliminarjson/{id}")
+	public ResponseEntity<Object> eliminarProductoJson(@PathVariable int id) {
 		service.eliminar(id);
 		respuesta respuesta=new respuesta(
 				"ok",
@@ -97,6 +98,4 @@ public class productoController {
 				);
 			return new ResponseEntity<> (respuesta, HttpStatus.OK);
 	}
-	
-
 }
