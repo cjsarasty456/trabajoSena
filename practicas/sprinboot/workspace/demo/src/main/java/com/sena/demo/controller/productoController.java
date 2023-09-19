@@ -1,5 +1,7 @@
 package com.sena.demo.controller;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +15,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.html.simpleparser.HTMLWorker;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import com.sena.demo.interfaceService.IproductoService;
 import com.sena.demo.model.Productos;
 import com.sena.demo.model.respuesta;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
-@RequestMapping("/producto")
+
 public class productoController {
 	
 	@Autowired
@@ -31,17 +41,48 @@ public class productoController {
 			model.addAttribute("productos",listaProductos);
 			return "listarproductos";
 		}
+		
+	    @GetMapping("/generar-pdf")
+	    public void generarPdf(HttpServletResponse response) throws IOException, DocumentException {
+	        // Configura la respuesta HTTP para generar un archivo PDF
+	        response.setContentType("application/pdf");
+	        response.setHeader("Content-Disposition", "inline; filename=mi_documento.pdf");
+
+	        // Crea un documento PDF utilizando OpenPDF
+	        Document document = new Document();
+	        PdfWriter.getInstance(document, response.getOutputStream());
+
+	        // Abre el documento
+	        document.open();
+	               
+	        //tabla
+	        List<Productos> listaProductos= service.consultarListaProductos();
+	    	PdfPTable tablaProductos=new PdfPTable(5);
+	    	tablaProductos.addCell("ID");
+			tablaProductos.addCell("Nombre");
+			tablaProductos.addCell("Descripción");
+			tablaProductos.addCell("Cantidad");
+			tablaProductos.addCell("Precio");
+			listaProductos.forEach(producto->{
+				tablaProductos.addCell(String.valueOf(producto.getId()));
+				tablaProductos.addCell(producto.getNombre());
+				tablaProductos.addCell(producto.getDescripcion());
+				tablaProductos.addCell(String.valueOf(producto.getCantidad()));
+				tablaProductos.addCell(String.valueOf(producto.getPrecio()));
+			});
+			document.add(tablaProductos);
+	        
+	        
+	        // Cierra el documento
+	        document.close();
+	    }
+		
 		@GetMapping("/nuevoProducto")
 		public String nuevoProducto(Model model) {
 			
 			return "formAgregar";
 		}
 		
-		@GetMapping("/")
-		public String index(Model model) {
-			
-			return "index";
-		}
 		
 		@PostMapping("/guardarProducto")
 		public String guardarProducto(

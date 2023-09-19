@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	<packaging>war</packaging>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -34,6 +34,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <scope>provided</scope>
+</dependency>
    <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
@@ -55,6 +60,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+	<dependency>
+  <groupId>com.github.librepdf</groupId>
+  <artifactId>openpdf</artifactId>
+  <version>1.3.30</version>
+</dependency>
 	</dependencies>
 
 	<build>
@@ -62,16 +72,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				 <executions>
-                <execution>
-                    <goals>
-                        <goal>repackage</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <mainClass>com.sena.DemoApplication</mainClass> <!-- Reemplaza con el nombre de tu clase principal -->
-            </configuration>
+			
 			</plugin>
 		</plugins>
 	</build>
