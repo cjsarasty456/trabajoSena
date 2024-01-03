@@ -1,7 +1,0 @@
-sandbox Kotlin, en el sandbox o cajón de arena: https://play.kotlinlang.org/#eyJ2ZXJzaW9uIjoiMS45LjAiLCJwbGF0Zm9ybSI6ImphdmEiLCJhcmdzIjoiIiwibm9uZU1hcmtlcnMiOnRydWUsInRoZW1lIjoiaWRlYSIsImNvZGUiOiIvKipcbiAqIFlvdSBjYW4gZWRpdCwgcnVuLCBhbmQgc2hhcmUgdGhpcyBjb2RlLlxuICogcGxheS5rb3RsaW5sYW5nLm9yZ1xuICovXG5mdW4gbWFpbigpIHtcbiAgICBwcmludGxuKFwiSGVsbG8sIHdvcmxkISEhXCIpXG59In0=
-
-Android studio: https://developer.android.com/studio?gclid=Cj0KCQjwkqSlBhDaARIsAFJANkh1MyFkffo9cQN1FmP5DUvcT1F9hdBQWQ0A19x9XLiCq5sr-Y34mvcaAuFdEALw_wcB&gclsrc=aw.ds
-
-
-lectura tipo de dato y definición:
-https://developer.android.com/codelabs/basic-android-kotlin-compose-variables?hl=es-419#0
