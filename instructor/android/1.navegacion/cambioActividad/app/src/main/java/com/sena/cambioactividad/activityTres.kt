@@ -12,7 +12,7 @@ class activityTres : AppCompatActivity() {
 
         var lblParametro=findViewById<TextView>(R.id.lblParametro)
         var texto=intent.getStringExtra("parametro")
-        lblParametro.text=texto
+        lblParametro.setText(texto)
         var btnVolver=findViewById<Button>(R.id.btnVolver)
         btnVolver.setOnClickListener {
             volver()

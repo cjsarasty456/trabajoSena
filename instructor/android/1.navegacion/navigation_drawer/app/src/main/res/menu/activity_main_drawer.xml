@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item android:id="@+id/nav_item_one"
+            android:icon="@drawable/home"
+            android:title="Item 1"
+            />
+        <item android:id="@+id/nav_item_two"
+            android:icon="@drawable/add"
+            android:title="Item 2"
+            />
+        <item android:id="@+id/nav_item_three"
+            android:icon="@drawable/table_rows"
+            android:title="Item 3"
+            />
+        <item android:id="@+id/nav_item_four"
+            android:icon="@drawable/contacts"
+            android:title="Item 4"
+            />
+    </group>
+<!--    Subgrupo-->
+    <item android:title="User">
+        <menu>
+            <item android:id="@+id/nav_item_five"
+                android:icon="@drawable/account"
+                android:title="Account"
+                />
+            <item android:id="@+id/nav_item_six"
+                android:icon="@drawable/settings"
+                android:title="Setting"
+                />
+
+        </menu>
+    </item>
+</menu>
