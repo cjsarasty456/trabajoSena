@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">cambioFragmento</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="textFirstFragmento">Primer Fragmento</string>
+    <string name="textSecondFragmento">Segundo Fragmento</string>
+    <string name="textThirdFragmento">Tercero Fragmento</string>
+</resources>

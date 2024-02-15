@@ -30,6 +30,16 @@ class MainActivity : AppCompatActivity() {
             //ejecutamos la actividad
             startActivity(intent)
         }
+
+        btnTerceraActividad.setOnClickListener {
+            var intent2=Intent(this,thirdActivity::class.java).apply {
+                //se asignan los parametros para la tercera actividad
+                //putExtra("nombre de la viriable","valor")
+                putExtra("parametro",
+                    txtParametro.text.toString())
+            }
+            startActivity(intent2)
+        }
     }
 
 }
