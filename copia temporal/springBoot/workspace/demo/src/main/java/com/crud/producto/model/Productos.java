@@ -41,7 +41,7 @@ public class Productos {
 		this.descripcion = descripcion;
 		this.precio = precio;
 		this.cantidad = cantidad;
-		this.imagen_base = imagen_base;
+		this.imagen_base = "data:image/jpeg;base64,"+ imagen_base;
 		this.imagen_url = imagen_url;
 	}
 
@@ -108,7 +108,7 @@ public class Productos {
 
 
 	public void setImagen_url(String imagen_url) {
-		this.imagen_url = imagen_url;
+		this.imagen_url ="data:image/jpeg;base64,"+ imagen_url;
 	}
 
 	
