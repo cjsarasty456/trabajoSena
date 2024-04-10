@@ -1,6 +1,9 @@
 package com.crud.producto.controller;
 
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.crud.producto.interfaceService.IproductoService;
 import com.crud.producto.model.Productos;
@@ -60,7 +65,8 @@ public class productoController {
 	@GetMapping("/listarjson")
 	public ResponseEntity<Object> consultarListaProductosJson() {
 		List<Productos> listaProductos= service.consultarListaProductos();
-		
+		String blob="";
+		listaProductos.get(0).setImagen_base(blob);
 		return new ResponseEntity<> (listaProductos, HttpStatus.OK);
 	}
 	@GetMapping("/consultarjson/{id}")
@@ -72,7 +78,8 @@ public class productoController {
 	
 	@PostMapping("/guardarProductoJson")
 	//eliminar @RequestBody 
-	public ResponseEntity<Object> guardarProductoJson(Productos producto) {
+	public ResponseEntity<Object> guardarProductoJson(Productos producto, @RequestParam("file") MultipartFile file) throws IOException  {
+		producto.setImagen_base(Base64.getEncoder().encodeToString(file.getBytes()));
 		int retorno=service.guardar(producto);
 		if(retorno==0) {	
 			respuesta respuesta=new respuesta(

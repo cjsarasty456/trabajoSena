@@ -1,5 +1,7 @@
 package com.crud.producto.model;
 
+import java.sql.Blob;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,56 +24,95 @@ public class Productos {
 	private double precio;
 	@Column( name="cantidad", nullable = false, length = 11)
 	private int cantidad;
-	@Column( name="imagen", nullable = false, length = 35)
-	private String imagen;
-		
+	@Column( name="imagen_base", nullable = true)
+	private String  imagen_base;
+	@Column( name="imagen_url", nullable = true, length = 35 )
+	private String imagen_url;
+	
 	public Productos() {
-		super();
 	}
-	public Productos(int id, String nombre, String descripcion, double precio, int cantidad, String imagen) {
-		super();
+
+	
+	
+	public Productos(int id, String nombre, String descripcion, double precio, int cantidad, String  imagen_base,
+			String imagen_url) {
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
 		this.cantidad = cantidad;
-		this.imagen=imagen;
+		this.imagen_base = imagen_base;
+		this.imagen_url = imagen_url;
 	}
+
+
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	public double getPrecio() {
 		return precio;
 	}
+
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+
 	public int getCantidad() {
 		return cantidad;
 	}
+
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public String getImagen() {
-		return imagen;
+
+
+
+	public String  getImagen_base() {
+		return imagen_base;
 	}
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
+
+
+
+	public void setImagen_base(String  imagen_base) {
+		this.imagen_base = imagen_base;
 	}
+
+
+
+	public String getImagen_url() {
+		return imagen_url;
+	}
+
+
+
+	public void setImagen_url(String imagen_url) {
+		this.imagen_url = imagen_url;
+	}
+
+	
+		
+	
 	
 }
