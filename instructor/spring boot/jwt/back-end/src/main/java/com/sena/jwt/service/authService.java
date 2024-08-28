@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +30,10 @@ public class authService implements IUserServices  {
 
     public authResponse register(registerRequest request){
         user userData=user.builder()
-            .first_name(request.getFirstName())
-            .last_name(request.getLastName())
+            .first_name(request.getFirstname())
+            .last_name(request.getLastname())
             .role(role.User)
-            .user_name(request.getUserName())
+            .user_name(request.getUsername())
             .password(passwordEncoder.encode(request.getPassword()))
             .build();
         
@@ -49,8 +50,13 @@ public class authService implements IUserServices  {
                  request.getPassword()
                  )
             );
-        return new authResponse();
+        user user=findByUsername(request.getUsername()).orElseThrow();
+        String token=jwtService.getToken(user);
+        return authResponse.builder()
+        .token(token)
+        .build();
     }
+    
     @Override
     public Optional<user> findByUsername(String userName) {
         return data.findByUsername(userName);

@@ -36,7 +36,7 @@ public class userPublicController {
     @PostMapping("/register/")
     public ResponseEntity<authResponse> register(@RequestBody registerRequest request) throws MessagingException {
         authResponse response = authService.register(request);
-        var prueba=emailService.enviarCorreocreacionCuenta(request.getUserName(), request.getPassword());
+        var prueba=emailService.enviarCorreocreacionCuenta(request.getUsername(), request.getPassword());
         return new ResponseEntity<authResponse>(response, HttpStatus.OK);
     }
 

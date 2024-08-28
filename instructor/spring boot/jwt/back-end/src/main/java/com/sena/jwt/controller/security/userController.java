@@ -4,9 +4,14 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sena.jwt.model.security.user;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -18,8 +23,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class userController {
 
     @GetMapping("/profile/")
-    public ResponseEntity<String> getProfile() {
-        return new ResponseEntity<>("end-point privado profile",HttpStatus.OK);
+    public ResponseEntity<user> getProfile() {
+        Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+        user user=(user) auth.getPrincipal();
+        return new ResponseEntity<user>(user,HttpStatus.OK);
     }
 
 }
