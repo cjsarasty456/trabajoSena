@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena.jwt.model.security.role;
 import com.sena.jwt.model.security.user;
 
 import org.springframework.web.bind.annotation.GetMapping;
-
-
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -22,11 +21,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class userController {
 
+    private user getUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return (user) auth.getPrincipal();
+    }
+
+    private role getRole() {
+        return getUser().getRole();
+    }
+
     @GetMapping("/profile/")
     public ResponseEntity<user> getProfile() {
-        Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-        user user=(user) auth.getPrincipal();
-        return new ResponseEntity<user>(user,HttpStatus.OK);
+        user user = getUser();
+        return new ResponseEntity<user>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/findAll/")
+    public ResponseEntity<String> findAll() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        var user= (user) auth.getPrincipal();
+        if (user.getRole() != role.Admin)
+            return new ResponseEntity<String>("No tienes permiso", HttpStatus.FORBIDDEN);
+
+        return new ResponseEntity<String>("Métdo administrador", HttpStatus.OK);
     }
 
 }
