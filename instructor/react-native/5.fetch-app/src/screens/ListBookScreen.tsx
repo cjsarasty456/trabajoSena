@@ -2,37 +2,45 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { HomeStackParamsList } from "../navigations/types";
+import { BookStackParamsList } from "../navigations/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-// type HomeScreenNavigationProp = NativeStackNavigationProp<
-//   HomeStackParamsList,
-//   "Home"
-// >;
+type BookScreenNavigationProp = NativeStackNavigationProp<
+  BookStackParamsList,
+  "ListBook"
+>;
 
 const ListBookScreen = () => {
-  // const navigation = useNavigation<HomeScreenNavigationProp>();
+  const navigation = useNavigation<BookScreenNavigationProp>();
   return (
     <View>
       <Text style={styles.title}>List Book</Text>
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={styles.touch}
-        onPress={() => navigation.navigate("Stack")}
+        onPress={() => navigation.navigate("AddBook")}
       >
-        <Text>Stacks</Text>
+        <Text>Add book</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.touch}
-        onPress={() => navigation.navigate("Details", { userId: "1" })}
+        onPress={() =>
+          navigation.navigate("DetailBook", {
+            bookId: "123",
+          })
+        }
       >
-        <Text>Details 1</Text>
+        <Text>Details book</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.touch}
-        onPress={() => navigation.navigate("Details", { userId: "2" })}
+        onPress={() =>
+          navigation.navigate("UpdateBook", {
+            bookId: "123",
+          })
+        }
       >
-        <Text>Details 2</Text>
-      </TouchableOpacity> */}
+        <Text>Update book</Text>
+      </TouchableOpacity>
     </View>
   );
 };

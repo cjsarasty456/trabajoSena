@@ -14,17 +14,21 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 //import stack
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const HomeStackNavigator = createNativeStackNavigator();
+const BookStackNavigator = createNativeStackNavigator();
 
-// function MyStack() {
-//   return (
-//     <HomeStackNavigator.Navigator initialRouteName="Home">
-//       <HomeStackNavigator.Screen name="Home" component={HomeScreen} />
-//       <HomeStackNavigator.Screen name="Stack" component={StackScreen} />
-//       <HomeStackNavigator.Screen name="Details" component={DetailsScreen} />
-//     </HomeStackNavigator.Navigator>
-//   );
-// }
+function MyStack() {
+  return (
+    <BookStackNavigator.Navigator initialRouteName="AddBook">
+      <BookStackNavigator.Screen name="ListBook" component={ListBookScreen} />
+      <BookStackNavigator.Screen name="AddBook" component={AddBookScreen} />
+      <BookStackNavigator.Screen name="DetailBook" component={DetailsScreen} />
+      <BookStackNavigator.Screen
+        name="UpdateBook"
+        component={UpdateBookScreen}
+      />
+    </BookStackNavigator.Navigator>
+  );
+}
 
 //instance for createBottomTabNavigator
 const Tab = createBottomTabNavigator();
@@ -37,7 +41,7 @@ function MyTabs() {
     >
       <Tab.Screen
         name="ListBook"
-        component={ListBookScreen}
+        component={MyStack}
         options={{
           tabBarLabel: "List Book",
           headerShown: false,
@@ -47,29 +51,6 @@ function MyTabs() {
           // tabBarBadge: 5,
         }}
       />
-      <Tab.Screen
-        name="AddtBook"
-        component={AddBookScreen}
-        options={{
-          tabBarLabel: "Add Book",
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="bookshelf" size={24} color="black" />
-          ),
-          // tabBarBadge: 5,
-        }}
-      />
-      {/* <Tab.Screen
-        name="Setting"
-        component={SettingsScreen}
-        options={{
-          tabBarLabel: "Setting",
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="setting" size={24} color="black" />
-          ),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }

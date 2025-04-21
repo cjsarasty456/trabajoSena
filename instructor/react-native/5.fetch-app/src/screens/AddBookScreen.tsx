@@ -1,61 +1,127 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 
-import { HomeStackParamsList } from "../navigations/types";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  ScrollView,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import { book } from "../api/types/book";
 
-// type HomeScreenNavigationProp = NativeStackNavigationProp<
-//   HomeStackParamsList,
-//   "Home"
-// >;
+export default function AddBookScreen() {
+  const [form, setForm] = useState({
+    title: "",
+    author: "",
+    publisher: "",
+    description: "",
+    isbn: "",
+    stock: "",
+    status: "",
+    state_book: "",
+  });
+  const preparedForm = {
+    ...form,
+    isbn: Number(form.isbn),
+    stock: Number(form.stock),
+    status: Number(form.status),
+    state_book: Number(form.state_book),
+  };
+  const handleChange = (name: string, value: string) => {
+    setForm({ ...form, [name]: value });
+  };
+  const createBook = async (): Promise<void> => {
+    const response = await fetch("http://192.168.1.9:8080/api/v1/book/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(preparedForm),
+    });
 
-const AddBookScreen = () => {
-  //   const navigation = useNavigation<HomeScreenNavigationProp>();
+    if (!response.ok) throw new Error("Error al crear el libro");
+    let data = await response.json();
+    console.log(data);
+    return data;
+  };
   return (
     <View>
       <Text style={styles.title}>Add Book</Text>
+      <ScrollView contentContainerStyle={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder="Título"
+          value={form.title}
+          onChangeText={(text) => handleChange("title", text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Autor"
+          value={form.author}
+          onChangeText={(text) => handleChange("author", text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Editorial"
+          value={form.publisher}
+          onChangeText={(text) => handleChange("publisher", text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Descripción"
+          value={form.description}
+          onChangeText={(text) => handleChange("description", text)}
+          multiline
+          numberOfLines={3}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="ISBN"
+          value={form.isbn}
+          onChangeText={(text) => handleChange("isbn", text)}
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Stock"
+          value={form.stock}
+          onChangeText={(text) => handleChange("stock", text)}
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Status"
+          value={form.status}
+          onChangeText={(text) => handleChange("status", text)}
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Estado del libro"
+          value={form.state_book}
+          // onChangeText={(text) => handleChange("state_book", text)}
+          keyboardType="numeric"
+        />
+
+        <Button title="Guardar" onPress={createBook} />
+      </ScrollView>
     </View>
   );
-};
-//         style={styles.touch}
-//         onPress={() => navigation.navigate("Stack")}
-//       >
-//         <Text>Stacks</Text>
-//       </TouchableOpacity>
-//       <TouchableOpacity
-//         style={styles.touch}
-//         onPress={() => navigation.navigate("Details", { userId: "1" })}
-//       >
-//         <Text>Details 1</Text>
-//       </TouchableOpacity>
-//       <TouchableOpacity
-//         style={styles.touch}
-//         onPress={() => navigation.navigate("Details", { userId: "2" })}
-//       >
-//         <Text>Details 2</Text>
-//       </TouchableOpacity>
+}
 
 const styles = StyleSheet.create({
   title: {
     fontSize: 50,
     textAlign: "center",
   },
-  touch: {
-    margin: 5,
-    backgroundColor: "#1e90ff", // azul tipo botón
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 5, // sombra en Android
-    width: 150,
+  container: {
+    padding: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#aaa",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
   },
 });
-
-export default AddBookScreen;

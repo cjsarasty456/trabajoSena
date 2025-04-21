@@ -1,17 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { HomeStackParamsList } from "../navigations/types";
+import { BookStackParamsList } from "../navigations/types";
 
-type DetailsRouteProp = RouteProp<HomeStackParamsList, "Details">;
+type DetailsRouteProp = RouteProp<BookStackParamsList, "DetailBook">;
 
 const DetailsScreen = () => {
   const route = useRoute<DetailsRouteProp>();
-  const { userId } = route.params;
+  const { bookId } = route.params;
   return (
     <View>
       <Text style={styles.title}>Details Book</Text>
-      <Text>User id: {userId}</Text>
+      <Text>Book id: {bookId}</Text>
     </View>
   );
 };
