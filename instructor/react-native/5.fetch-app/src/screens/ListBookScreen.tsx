@@ -35,7 +35,7 @@ const ListBookScreen = () => {
         style={styles.touch}
         onPress={() =>
           navigation.navigate("UpdateBook", {
-            bookId: "123",
+            bookId: "1",
           })
         }
       >

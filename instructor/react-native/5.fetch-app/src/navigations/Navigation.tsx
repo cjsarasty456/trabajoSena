@@ -18,7 +18,7 @@ const BookStackNavigator = createNativeStackNavigator();
 
 function MyStack() {
   return (
-    <BookStackNavigator.Navigator initialRouteName="AddBook">
+    <BookStackNavigator.Navigator initialRouteName="ListBook">
       <BookStackNavigator.Screen name="ListBook" component={ListBookScreen} />
       <BookStackNavigator.Screen name="AddBook" component={AddBookScreen} />
       <BookStackNavigator.Screen name="DetailBook" component={DetailsScreen} />
