@@ -2,6 +2,8 @@ package com.sena.jwt.controller.security;
 
 import lombok.RequiredArgsConstructor;
 
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sena.jwt.model.security.role;
+import com.sena.jwt.model.security.rol;
 import com.sena.jwt.model.security.user;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +28,10 @@ public class userController {
         return (user) auth.getPrincipal();
     }
 
-    private role getRole() {
-        return getUser().getRole();
+    private rol getRol() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        user user= (user) auth.getPrincipal();
+        return user.getRol();
     }
 
     @GetMapping("/profile/")
@@ -40,7 +44,7 @@ public class userController {
     public ResponseEntity<String> findAll() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         var user= (user) auth.getPrincipal();
-        if (user.getRole() != role.Admin)
+        if (!user.getRol().isAdmin())
             return new ResponseEntity<String>("No tienes permiso", HttpStatus.FORBIDDEN);
 
         return new ResponseEntity<String>("Métdo administrador", HttpStatus.OK);

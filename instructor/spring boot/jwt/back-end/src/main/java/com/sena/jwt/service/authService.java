@@ -5,26 +5,25 @@ import java.util.Optional;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.sena.jwt.interfaceService.IUserServices;
-import com.sena.jwt.interfaces.IUser;
-import com.sena.jwt.model.security.authResponse;
-import com.sena.jwt.model.security.loginRequest;
-import com.sena.jwt.model.security.registerRequest;
-import com.sena.jwt.model.security.role;
+import com.sena.jwt.DTO.authResponse;
+import com.sena.jwt.DTO.loginRequest;
+import com.sena.jwt.DTO.registerRequest;
+import com.sena.jwt.repository.IUser;
+
 import com.sena.jwt.model.security.user;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class authService implements IUserServices  {
+public class authService {
 
     private final IUser data;
     private final jwtService jwtService;
+    private final rolService rolService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
@@ -32,7 +31,7 @@ public class authService implements IUserServices  {
         user userData=user.builder()
             .first_name(request.getFirstname())
             .last_name(request.getLastname())
-            .role(role.User)
+            .rol(rolService.getRolDefault())
             .user_name(request.getUsername())
             .password(passwordEncoder.encode(request.getPassword()))
             .build();
@@ -57,18 +56,18 @@ public class authService implements IUserServices  {
         .build();
     }
     
-    @Override
+    
     public Optional<user> findByUsername(String userName) {
         return data.findByUsername(userName);
     }
 
-    @Override
+    
     public int delete(String id) {
         // TODO Auto-generated method stub
         return 0;
     }
 
-    @Override
+    
     public List<user> findAll() {
         // TODO Auto-generated method stub
         return null;

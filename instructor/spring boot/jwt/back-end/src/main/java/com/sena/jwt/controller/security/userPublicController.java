@@ -2,9 +2,9 @@ package com.sena.jwt.controller.security;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sena.jwt.model.security.authResponse;
-import com.sena.jwt.model.security.loginRequest;
-import com.sena.jwt.model.security.registerRequest;
+import com.sena.jwt.DTO.authResponse;
+import com.sena.jwt.DTO.loginRequest;
+import com.sena.jwt.DTO.registerRequest;
 import com.sena.jwt.service.authService;
 import com.sena.jwt.service.emailService;
 
@@ -36,7 +36,7 @@ public class userPublicController {
     @PostMapping("/register/")
     public ResponseEntity<authResponse> register(@RequestBody registerRequest request) throws MessagingException {
         authResponse response = authService.register(request);
-        var prueba=emailService.enviarCorreocreacionCuenta(request.getUsername(), request.getPassword());
+        emailService.enviarCorreocreacionCuenta(request.getUsername(), request.getPassword());
         return new ResponseEntity<authResponse>(response, HttpStatus.OK);
     }
 
