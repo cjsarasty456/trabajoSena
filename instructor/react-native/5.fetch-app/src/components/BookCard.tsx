@@ -1,24 +1,38 @@
+// components/BookCard.tsx
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { IBook } from "../api/types/IBook";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { BookStackParamsList } from "../navigations/types";
 
 interface Props {
-  book: IBook;
+  data: IBook;
 }
 
-const BookCard = ({ book }: Props) => {
+const BookCard: React.FC<Props> = ({ data }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<BookStackParamsList>>();
+
+  const handleEdit = () => {
+    navigation.navigate("UpdateBook", { bookId: data.id_book.toString() });
+  };
+
+  const handleDelete = () => {
+    // deleteBook(data.id_book);
+  };
+
   return (
     <View style={styles.card}>
-      <Text>Titulo: {book.title}</Text>
-      <Text>Autor: {book.author}</Text>
-      <Text>Publicador: {book.publisher}</Text>
-      <Text>ISBN: {book.isbn}</Text>
+      <Text style={styles.title}>{data.title}</Text>
+      <Text style={styles.text}>Autor: {data.author}</Text>
+      <Text style={styles.text}>Editorial: {data.publisher}</Text>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonEditar}>
+        <TouchableOpacity style={styles.buttonEdit} onPress={handleEdit}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonEliminar}>
+        <TouchableOpacity style={styles.buttonDelete} onPress={handleDelete}>
           <Text style={styles.buttonText}>Eliminar</Text>
         </TouchableOpacity>
       </View>
@@ -28,33 +42,41 @@ const BookCard = ({ book }: Props) => {
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 15,
+    backgroundColor: "#f8f8f8",
+    padding: 16,
     margin: 8,
-    minHeight: 200,
-    justifyContent: "space-between",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 6,
+  },
+  text: {
+    fontSize: 14,
+    color: "#333",
   },
   buttonContainer: {
     flexDirection: "row",
-    marginTop: 20,
+    marginTop: 12,
+    justifyContent: "space-between",
   },
-  buttonEditar: {
-    flex: 1,
-    backgroundColor: "#b74125",
-    marginRight: 5,
-    paddingVertical: 10,
-    borderRadius: 10,
-    alignItems: "center",
+  buttonEdit: {
+    backgroundColor: "#1e90ff",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
   },
-  buttonEliminar: {
-    flex: 1,
-    backgroundColor: "#d9534f",
-    marginLeft: 5,
-    paddingVertical: 10,
-    borderRadius: 10,
-    alignItems: "center",
+  buttonDelete: {
+    backgroundColor: "#ff4d4d",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
   },
   buttonText: {
     color: "#fff",
