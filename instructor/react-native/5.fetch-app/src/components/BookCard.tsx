@@ -5,20 +5,22 @@ import { IBook } from "../api/types/IBook";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { BookStackParamsList } from "../navigations/types";
+import { deleteBook } from "../api/booksApi";
 
 interface Props {
   data: IBook;
 }
 
 const BookCard: React.FC<Props> = ({ data }) => {
-  const navigation = useNavigation<NativeStackNavigationProp<BookStackParamsList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<BookStackParamsList>>();
 
   const handleEdit = () => {
     navigation.navigate("UpdateBook", { bookId: data.id_book.toString() });
   };
 
-  const handleDelete = () => {
-    // deleteBook(data.id_book);
+  const handleDelete = async () => {
+    const registro = await deleteBook(data.id_book);
   };
 
   return (

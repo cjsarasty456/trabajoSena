@@ -60,7 +60,7 @@ export const updateBook = async (id: number, register: IBook) => {
   }
 };
 
-export const deleteBook = async (id: number, register: IBook) => {
+export const deleteBook = async (id: string) => {
   try {
     const response = await fetch(BOOK_END_POINT + id, {
       method: "DELETE",
