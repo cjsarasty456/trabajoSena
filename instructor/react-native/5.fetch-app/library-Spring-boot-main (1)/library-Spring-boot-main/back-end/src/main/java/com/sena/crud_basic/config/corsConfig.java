@@ -16,8 +16,8 @@ public class corsConfig {
         //no permitida
         // permitir solicitudes desde todos los origenes
         // // config.addAllowedOrigin("*");
-        config.addAllowedOrigin("http://localhost:8081");
-        config.addAllowedOrigin("http://172.30.5.219:8081");
+        // config.addAllowedOrigin("http://localhost:8081");
+        // config.addAllowedOrigin("http://172.30.5.219:8081");
         // config.addAllowedOrigin("http://172.30.7.20:5500");
         
         // config.addAllowedOrigin("n cantidad de servidores");

@@ -66,17 +66,17 @@ Cualquier acción que no deba ejecutarse en cada render
     fetchBooks();
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      const intervalId = setInterval(() => {
-        fetchBooks();
-      }, 5000);
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     const intervalId = setInterval(() => {
+  //       fetchBooks();
+  //     }, 5000);
 
-      return () => {
-        clearInterval(intervalId);
-      };
-    }, [])
-  );
+  //     return () => {
+  //       clearInterval(intervalId);
+  //     };
+  //   }, [])
+  // );
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
